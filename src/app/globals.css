@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+*{
+  box-sizing: border-box;  
+  scroll-behavior: smooth;
+
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --first-blue: #0a2342;
+  --secondary-blue: #1d4e89;
+  --grey: #e5e7eb;
+  --white: #ffffff;
+  --gold: #c8a24d;
+
+}
+
+
+body {
+  background: var(--background);
+  width: 100%;
+  /* border: 1px solid green;
+  *{border:1px solid red;} */
+
+}
