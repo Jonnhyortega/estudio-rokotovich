@@ -1,15 +1,23 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "framer-motion";
+
+const ThreeHeroScene = dynamic(() => import("./ThreeHeroScene"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[450px] lg:h-[550px] flex items-center justify-center">
+      <div className="w-10 h-10 rounded-full border-2 border-[var(--gold)] border-t-transparent animate-spin" />
+    </div>
+  ),
+});
 
 export default function Hero({
   title = "Rokotovich Estudio Jurídico",
   subtitle = "Asesoramiento legal claro, estratégico y orientado a resultados.",
   ctaPrimary = { href: "#contacto", label: "Agendar consulta" },
   ctaSecondary = { href: "#areas", label: "Áreas de práctica" },
-  heroImage = "https://res.cloudinary.com/do87isqjr/image/upload/v1790201144/LUCAS_209_blo2ee.png",
 }) {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,19 +51,25 @@ export default function Hero({
       id="hero"
       aria-label="Portada del sitio — Estudio Jurídico"
       className="
-        relative isolate flex items-center min-h-[90vh]
+        relative isolate flex items-center min-h-[92vh]
         pt-28 pb-16 lg:pt-36 lg:pb-24
         overflow-hidden scroll-mt-24
-        bg-gradient-to-b bg-white
-        // from-[#06172e] via-[#041121] to-[#020812]
+        bg-gradient-to-b from-[#06172e] via-[#041121] to-[#020812]
       "
     >
+      {/* Escena 3D de Ondas y Partículas Doradas de Fondo */}
+      <ThreeHeroScene />
+
+      {/* Overlay Gradiente Oscuro para Garantizar Máxima Legibilidad del Texto */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#041121]/95 via-[#041121]/80 to-[#041121]/45 pointer-events-none z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#06172e]/70 via-transparent to-[#020812]/90 pointer-events-none z-[1]" />
+
       {/* Luces/brillos de fondo sutiles */}
-      <div className="absolute top-1/4 -left-32 -z-10 h-96 w-96 rounded-full bg-[var(--gold)]/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-0 -z-10 h-96 w-96 rounded-full bg-[#0a2342]/40 blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-32 -z-10 h-96 w-96 rounded-full bg-[var(--gold)]/15 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-0 -z-10 h-96 w-96 rounded-full bg-[#0a2342]/50 blur-[140px] pointer-events-none" />
 
       {/* Contenido Principal */}
-      <div className="mx-auto w-full max-w-7xl px-6 relative z-10">
+      <div className="mx-auto w-full max-w-7xl px-6 relative z-10 pointer-events-none">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -63,7 +77,7 @@ export default function Hero({
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
           {/* Columna Izquierda: Textos y CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start">
+          <div className="lg:col-span-7 flex flex-col items-start pointer-events-auto">
             {/* Chip superior */}
             <motion.div variants={itemVariants} className="mb-6">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold tracking-wide text-white ring-1 ring-white/20 backdrop-blur-md shadow-lg">
@@ -74,35 +88,16 @@ export default function Hero({
 
             {/* Título Principal */}
             <motion.div variants={itemVariants}>
-              <h1 className="text-balance text-[38px] sm:text-5xl lg:text-[62px] font-extrabold tracking-tight text-white drop-shadow-xl leading-[1.08]">
+              <h1 className="text-balance text-[38px] sm:text-5xl lg:text-[62px] font-extrabold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] leading-[1.08]">
                 {title}
               </h1>
             </motion.div>
 
             {/* Subtítulo */}
             <motion.div variants={itemVariants}>
-              <p className="mt-6 text-[18px] sm:text-[21px] leading-[1.6] text-white/85 font-light max-w-2xl">
+              <p className="mt-6 text-[18px] sm:text-[21px] leading-[1.6] text-white/90 font-light max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {subtitle}
               </p>
-            </motion.div>
-
-            {/* Foto en Mobile (aparece entre el texto y los CTAs en pantallas pequeñas) */}
-            <motion.div
-              variants={itemVariants}
-              className="lg:hidden w-full my-6 max-w-sm mx-auto relative"
-            >
-              <div className="absolute inset-x-2 top-4 bottom-0 bg-[var(--gold)]/15 blur-2xl rounded-full" />
-              <div className="relative h-[400px] sm:h-[450px] w-full">
-                <Image
-                  src={heroImage}
-                  alt="Dr. Lucas Rokotovich"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-contain object-top filter drop-shadow-2xl"
-                />
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#020812] to-transparent pointer-events-none" />
-              </div>
             </motion.div>
 
             {/* Botones CTA */}
@@ -144,26 +139,49 @@ export default function Hero({
             </motion.dl>
           </div>
 
-          {/* Columna Derecha: Foto Destacada del Profesional (Desktop) */}
-          <div className="hidden lg:block lg:col-span-5">
+          {/* Columna Derecha: Tarjetas Flotantes de Lujo Glassmorphism */}
+          <div className="hidden lg:block lg:col-span-5 pointer-events-auto">
             <motion.div
               variants={itemVariants}
-              className="relative mx-auto w-full max-w-[460px]"
+              className="relative mx-auto w-full max-w-[440px] space-y-5"
             >
-              {/* Resplandor decorativo posterior */}
-              <div className="absolute inset-x-4 top-10 bottom-0 rounded-full bg-gradient-to-tr from-[var(--gold)]/20 via-[#0a2342]/50 to-transparent blur-3xl opacity-80" />
+              {/* Tarjeta 1 */}
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0">
+                    <span className="text-2xl">⚖️</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-[17px]">Defensa & Estrategia Integral</h3>
+                    <p className="text-white/75 text-[13.5px] mt-0.5">Soluciones legales de alta complejidad con enfoque en resultados.</p>
+                  </div>
+                </div>
+              </div>
 
-              <div className="relative h-[530px] xl:h-[600px] w-full group">
-                <Image
-                  src={heroImage}
-                  alt="Dr. Lucas Rokotovich"
-                  fill
-                  priority
-                  sizes="50vw"
-                  className="object-contain object-top filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                {/* Transición sutil al fondo en la base de la silueta */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#020812] to-transparent pointer-events-none" />
+              {/* Tarjeta 2 */}
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15 ml-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center shrink-0">
+                    <span className="text-2xl">🏛️</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-[17px]">Atención Federal & Asesoría</h3>
+                    <p className="text-white/75 text-[13.5px] mt-0.5">Cobertura nacional inmediata para particulares y empresas.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tarjeta 3 */}
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0">
+                    <span className="text-2xl">🛡️</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-[17px]">Respuesta Rápida 24/7</h3>
+                    <p className="text-white/75 text-[13.5px] mt-0.5">Atención personalizada y confidencial ante urgencias jurídicas.</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -96,28 +96,48 @@ export default function About() {
             </motion.div>
           </motion.div>
 
-          {/* Bloque Visual Derecho (Logo Institucional) */}
+          {/* Bloque Visual Derecho: Imagen Profesional del Dr. Lucas Rokotovich */}
           <motion.div 
             variants={imageContainerVariants}
-            className="relative bg-gradient-to-br from-[var(--first-blue)] to-[#041121] flex items-center justify-center p-12 min-h-[450px] lg:min-h-full overflow-hidden"
+            className="relative bg-gradient-to-br from-[#06172e] via-[#041121] to-[#020812] flex items-end justify-center pt-12 px-6 min-h-[480px] lg:min-h-full overflow-hidden"
           >
             {/* Decoraciones abstractas elegantes de fondo */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--gold)]/10 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1d4e89]/30 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--gold)]/15 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-[#1d4e89]/30 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none"></div>
 
-            {/* Contenedor Flotante de Imagen */}
-            <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] xl:w-[450px] xl:h-[450px] transition-transform duration-700 hover:scale-105">
-              
-              {/* Anillo y fondo sutil detrás del logo para realzarlo */}
-              <div className="absolute inset-6 rounded-full bg-white/5 border border-white/10 shadow-2xl backdrop-blur-sm animate-[pulse_5s_cubic-bezier(0.4,0,0.6,1)_infinite]"></div>
-              
+            {/* Escudo translúcido de fondo como marca de agua */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
               <Image
                 src="/logo-sinfondo.png"
-                alt="Escudo Institucional del Estudio Rokotovich"
+                alt="Escudo de fondo Estudio Rokotovich"
+                width={380}
+                height={380}
+                className="object-contain"
+              />
+            </div>
+
+            {/* Contenedor de la foto del Profesional */}
+            <div className="relative w-full max-w-[380px] h-[420px] sm:h-[480px] lg:h-[520px] xl:h-[560px] transition-transform duration-700 hover:scale-[1.02]">
+              <Image
+                src="https://res.cloudinary.com/do87isqjr/image/upload/v1790872799/LUCAS_179.jpg-removebg-preview_nkkjtn.png"
+                alt="Dr. Lucas Rokotovich - Abogado Fundador"
                 fill
-                className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]"
                 priority
               />
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#020812] to-transparent pointer-events-none" />
+            </div>
+
+            {/* Tarjeta flotante con nombre y título */}
+            <div className="absolute bottom-6 left-6 right-6 sm:left-auto sm:right-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-2xl flex items-center gap-3.5 max-w-sm">
+              <div className="w-10 h-10 rounded-full bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0">
+                <span className="text-[var(--gold)] text-lg">⚖️</span>
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-[15px] leading-tight">Dr. Lucas Rokotovich</h3>
+                <p className="text-white/75 text-[12.5px] font-medium mt-0.5">Abogado Fundador & Director Legal</p>
+              </div>
             </div>
           </motion.div>
 

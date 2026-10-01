@@ -20,7 +20,7 @@ export default function Footer() {
         {/* Navegación rápida */}
         <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           <Link href="#about" className="hover:text-gray-300 transition">Sobre Nosotros</Link>
-          <Link href="#equipo" className="hover:text-gray-300 transition">Profesionales</Link>
+          {/* <Link href="#equipo" className="hover:text-gray-300 transition">Profesionales</Link> */}
           <Link href="#areas" className="hover:text-gray-300 transition">Áreas</Link>
           <Link href="#contacto" className="hover:text-gray-300 transition">Contacto</Link>
         </nav>

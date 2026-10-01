@@ -2,8 +2,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-// Puedes ajustar esta paleta desde tu globals.css con variables CSS.
-// Acá uso clases Tailwind y var(--first-blue) si ya la tenés definida.
 const AREAS_DATA = [
   {
     id: "penal",
@@ -19,46 +17,36 @@ const AREAS_DATA = [
       "Recurso Extraordinario Federal ante la Corte Suprema de Justicia de la Nación",
     ],
   },
-  {
-    id: "constitucional",
-    titulo: "Derecho Constitucional",
-    items: [
-      "Acciones de amparo y medidas cautelares",
-      "Acciones declarativas de inconstitucionalidad",
-      "Derechos y garantías fundamentales",
-      "Litigios estratégicos y libertad de expresión",
-    ],
-  },
-  {
-    id: "administrativo",
-    titulo: "Derecho Administrativo",
-    items: [
-      "Procedimientos y recursos administrativos",
-      "Contratación pública y licitaciones",
-      "Responsabilidad del Estado",
-      "Servicios públicos y regulación",
-    ],
-  },
-  {
-    id: "consultoria",
-    titulo: "Consultoría",
-    items: [
-      "Auditoría legal (due diligence)",
-      "Opiniones legales (legal opinions)",
-      "Diseño de políticas y manuales internos",
-      "Capacitación in-company",
-    ],
-  },
-  {
-    id: "compliance",
-    titulo: "Compliance",
-    items: [
-      "Programas de integridad (Ley 27.401)",
-      "Gestión de riesgos y mapas de calor",
-      "Investigaciones internas y canales de denuncia",
-      "Capacitación y cultura de cumplimiento",
-    ],
-  },
+  // {
+  //   id: "administrativo",
+  //   titulo: "Derecho Administrativo",
+  //   items: [
+  //     "Procedimientos y recursos administrativos",
+  //     "Contratación pública y licitaciones",
+  //     "Responsabilidad del Estado",
+  //     "Servicios públicos y regulación",
+  //   ],
+  // },
+  // {
+  //   id: "consultoria",
+  //   titulo: "Consultoría",
+  //   items: [
+  //     "Auditoría legal (due diligence)",
+  //     "Opiniones legales (legal opinions)",
+  //     "Diseño de políticas y manuales internos",
+  //     "Capacitación in-company",
+  //   ],
+  // },
+  // {
+  //   id: "compliance",
+  //   titulo: "Compliance",
+  //   items: [
+  //     "Programas de integridad (Ley 27.401)",
+  //     "Gestión de riesgos y mapas de calor",
+  //     "Investigaciones internas y canales de denuncia",
+  //     "Capacitación y cultura de cumplimiento",
+  //   ],
+  // },
 ];
 
 function Chevron({ open }) {
