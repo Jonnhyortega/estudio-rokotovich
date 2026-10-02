@@ -17,36 +17,6 @@ const AREAS_DATA = [
       "Recurso Extraordinario Federal ante la Corte Suprema de Justicia de la Nación",
     ],
   },
-  // {
-  //   id: "administrativo",
-  //   titulo: "Derecho Administrativo",
-  //   items: [
-  //     "Procedimientos y recursos administrativos",
-  //     "Contratación pública y licitaciones",
-  //     "Responsabilidad del Estado",
-  //     "Servicios públicos y regulación",
-  //   ],
-  // },
-  // {
-  //   id: "consultoria",
-  //   titulo: "Consultoría",
-  //   items: [
-  //     "Auditoría legal (due diligence)",
-  //     "Opiniones legales (legal opinions)",
-  //     "Diseño de políticas y manuales internos",
-  //     "Capacitación in-company",
-  //   ],
-  // },
-  // {
-  //   id: "compliance",
-  //   titulo: "Compliance",
-  //   items: [
-  //     "Programas de integridad (Ley 27.401)",
-  //     "Gestión de riesgos y mapas de calor",
-  //     "Investigaciones internas y canales de denuncia",
-  //     "Capacitación y cultura de cumplimiento",
-  //   ],
-  // },
 ];
 
 function Chevron({ open }) {
@@ -76,33 +46,21 @@ export default function Areas({ titulo = "Áreas de Práctica", data = AREAS_DAT
     );
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
-  };
-
   return (
-    <section id="areas" className="relative bg-slate-50 overflow-hidden py-24">
+    <section id="areas" className="relative bg-slate-50 overflow-hidden py-24 [perspective:1000px]">
       {/* Elemento de fondo sutil */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[var(--gold)]/5 rounded-full blur-3xl -mr-96 -mt-96 pointer-events-none"></div>
 
-      <div className="mx-auto max-w-5xl px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={containerVariants}
-        >
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div>
           {/* Cabecera */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
+          >
             <div className="inline-flex items-center justify-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-[var(--gold)]"></span>
               <span className="text-[var(--gold)] tracking-[0.2em] text-sm font-bold uppercase">Especialización</span>
@@ -114,15 +72,20 @@ export default function Areas({ titulo = "Áreas de Práctica", data = AREAS_DAT
           </motion.div>
 
           <div className="space-y-4">
-            {data.map((area) => {
+            {data.map((area, index) => {
               const isOpen = openIds.includes(area.id);
               const panelId = `panel-${area.id}`;
               const btnId = `button-${area.id}`;
               return (
                 <motion.div
-                  variants={itemVariants}
                   key={area.id}
-                  className={`overflow-hidden rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md ${isOpen ? 'border-[var(--gold)]/50 shadow-lg' : 'border-slate-200'}`}
+                  initial={{ opacity: 0, rotateX: 20, y: 40, scale: 0.95 }}
+                  whileInView={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={`overflow-hidden rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-lg ${
+                    isOpen ? 'border-[var(--gold)]/50 shadow-xl' : 'border-slate-200'
+                  }`}
                 >
                   {/* Header */}
                   <button
@@ -130,7 +93,7 @@ export default function Areas({ titulo = "Áreas de Práctica", data = AREAS_DAT
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onClick={() => toggle(area.id)}
-                    className="flex w-full items-center justify-between bg-[var(--first-blue)] px-6 py-5 text-left text-white group outline-none"
+                    className="flex w-full items-center justify-between bg-[var(--first-blue)] px-6 py-5 text-left text-white group outline-none hover:bg-[#0a2342] transition-colors"
                   >
                     <span className={`text-[17px] font-semibold transition-colors duration-300 ${isOpen ? 'text-[var(--gold)]' : 'group-hover:text-white/90'}`}>{area.titulo}</span>
                     <span className="text-white/80 shrink-0 ml-4">
@@ -164,8 +127,9 @@ export default function Areas({ titulo = "Áreas de Práctica", data = AREAS_DAT
               );
             })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
+

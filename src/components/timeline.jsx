@@ -67,7 +67,7 @@ const steps = [
 
 export default function TimelineSection() {
   return (
-    <section className="relative py-24 bg-slate-50 overflow-hidden">
+    <section className="relative py-24 bg-slate-50 overflow-hidden [perspective:1000px]">
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -75,7 +75,7 @@ export default function TimelineSection() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.3 }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm mb-6"
           >
             <span className="w-2 h-2 rounded-full bg-[var(--gold)]"></span>
@@ -86,7 +86,7 @@ export default function TimelineSection() {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[var(--first-blue)] tracking-tight font-serif"
           >
@@ -104,12 +104,18 @@ export default function TimelineSection() {
               const isRightSide = index % 2 === 0;
 
               return (
-                <div key={index} className="relative flex items-start md:items-center">
+                <div key={index} className="relative flex items-start md:items-center [perspective:1000px]">
                   
                   {/* Node Icon inside Timeline Line */}
-                  <div className="absolute left-[8px] md:left-1/2 md:-translate-x-1/2 w-10 h-10 rounded-full bg-slate-900 shadow-xl shadow-slate-900/20 flex items-center justify-center z-10 top-6 md:top-1/2 md:-translate-y-1/2 ring-[6px] ring-slate-50">
+                  <motion.div 
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="absolute left-[8px] md:left-1/2 md:-translate-x-1/2 w-10 h-10 rounded-full bg-slate-900 shadow-xl shadow-slate-900/20 flex items-center justify-center z-10 top-6 md:top-1/2 md:-translate-y-1/2 ring-[6px] ring-slate-50"
+                  >
                     {step.icon}
-                  </div>
+                  </motion.div>
 
                   {/* Card Container */}
                   <div
@@ -118,11 +124,23 @@ export default function TimelineSection() {
                     }`}
                   >
                     <motion.div
-                      initial={{ opacity: 0, x: isRightSide ? 30 : -30, y: 10 }}
-                      whileInView={{ opacity: 1, x: 0, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className="w-full bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-8 relative hover:-translate-y-1 transition-transform duration-300"
+                      initial={{ 
+                        opacity: 0, 
+                        rotateX: 18, 
+                        x: isRightSide ? 35 : -35, 
+                        y: 25, 
+                        scale: 0.95 
+                      }}
+                      whileInView={{ 
+                        opacity: 1, 
+                        rotateX: 0, 
+                        x: 0, 
+                        y: 0, 
+                        scale: 1 
+                      }}
+                      viewport={{ once: true, amount: 0.25 }}
+                      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                      className="w-full bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-7 sm:p-8 relative hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group"
                     >
                       {/* Desktop Arrow */}
                       <div
@@ -134,7 +152,7 @@ export default function TimelineSection() {
                       {/* Mobile Arrow */}
                       <div className="md:hidden absolute left-[-8.5px] top-10 w-4 h-4 bg-white border-b border-l border-slate-100 transform rotate-45"></div>
 
-                      <h3 className="text-[20px] font-bold text-slate-900 tracking-tight font-serif mb-4 flex items-center gap-3">
+                      <h3 className="text-[20px] font-bold text-slate-900 tracking-tight font-serif mb-3 flex items-center gap-3 group-hover:text-[var(--gold)] transition-colors">
                         {step.title}
                       </h3>
                       <p className="text-slate-600 leading-relaxed text-[15px] md:text-[16px]">
@@ -152,3 +170,4 @@ export default function TimelineSection() {
     </section>
   );
 }
+

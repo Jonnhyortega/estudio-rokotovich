@@ -4,24 +4,27 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function WorkAreas() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
+  // Animación 3D individual por tarjeta para activación precisa en smartphones al hacer scroll
+  const card3DVariant = {
+    hidden: { 
+      opacity: 0, 
+      rotateX: 24, 
+      y: 50, 
+      scale: 0.92,
+      transformPerspective: 1000 
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
+    visible: (index) => ({
       opacity: 1,
+      rotateX: 0,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-    },
+      scale: 1,
+      transformPerspective: 1000,
+      transition: {
+        duration: 0.8,
+        delay: index * 0.15,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    }),
   };
 
   const areas = [
@@ -61,7 +64,7 @@ export default function WorkAreas() {
     <section
       id="areas-trabajo"
       aria-label="Áreas de Trabajo y Cobertura Territorial"
-      className="relative bg-gradient-to-b from-[#020812] via-[#041121] to-[#06172e] py-24 px-6 lg:px-12 overflow-hidden"
+      className="relative bg-gradient-to-b from-[#020812] via-[#041121] to-[#06172e] py-24 px-4 sm:px-6 lg:px-12 overflow-hidden [perspective:1200px]"
     >
       {/* Luces sutiles de fondo */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--gold)]/10 rounded-full blur-[140px] pointer-events-none" />
@@ -70,63 +73,60 @@ export default function WorkAreas() {
         
         {/* Encabezado */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={containerVariants}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <motion.div variants={itemVariants} className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[var(--gold)] text-xs font-bold tracking-[0.2em] uppercase mb-4 shadow-lg backdrop-blur-md">
+          <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[var(--gold)] text-xs font-bold tracking-[0.2em] uppercase mb-4 shadow-lg backdrop-blur-md">
             <span>📍 Alcance Territorial & Jurisdiccional</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6"
-          >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
             Áreas de <span className="text-[var(--gold)]">Trabajo</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-slate-300 text-[17px] sm:text-[19px] font-light leading-relaxed"
-          >
+          <p className="text-slate-300 text-[17px] sm:text-[19px] font-light leading-relaxed">
             Ofrecemos patrocinio letrado y representación profesional en las principales jurisdicciones del país.
-          </motion.p>
+          </p>
         </motion.div>
 
-        {/* Tarjetas de Áreas de Trabajo */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"
-        >
-          {areas.map((area) => (
+        {/* Tarjetas de Áreas de Trabajo con animación 3D individual por Viewport */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          {areas.map((area, index) => (
             <motion.div
               key={area.id}
-              variants={itemVariants}
-              className="group relative rounded-[2.5rem] border border-white/10 bg-white/5 p-8 lg:p-10 backdrop-blur-xl shadow-2xl flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 hover:bg-white/10 hover:border-[var(--gold)]/40 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={card3DVariant}
+              custom={index}
+              className="group relative rounded-[2.5rem] border border-white/12 bg-gradient-to-b from-white/10 via-white/5 to-[#041121]/90 p-7 sm:p-9 lg:p-10 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-3 hover:bg-white/12 hover:border-[var(--gold)]/50 hover:shadow-[0_30px_60px_rgba(212,175,55,0.2)]"
             >
               {/* Badge superior */}
-              <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-semibold text-white/80 tracking-wider uppercase">
+              <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-semibold text-white/80 tracking-wider uppercase backdrop-blur-sm">
                 {area.badge}
               </div>
 
-              {/* Contenedor del Mapa / Silueta */}
-              <div className="w-full h-44 flex items-center justify-center mb-6 relative">
+              {/* Contenedor del Mapa / Silueta con efecto 3D */}
+              <div className="w-full h-48 flex items-center justify-center mb-6 relative [perspective:600px]">
                 {/* Resplandor circular tras el mapa */}
-                <div className="absolute w-28 h-28 bg-[var(--gold)]/20 rounded-full blur-2xl transition-all duration-500 group-hover:scale-125 group-hover:bg-[var(--gold)]/35" />
-                <div className="relative w-36 h-36 flex items-center justify-center">
+                <div className="absolute w-28 h-28 bg-[var(--gold)]/20 rounded-full blur-2xl transition-all duration-500 group-hover:scale-135 group-hover:bg-[var(--gold)]/40" />
+                
+                <motion.div 
+                  whileHover={{ rotateY: 12, rotateX: -8, scale: 1.08 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="relative w-40 h-40 flex items-center justify-center cursor-pointer"
+                >
                   <Image
                     src={area.imageSrc}
                     alt={area.alt}
                     fill
-                    className="object-contain filter drop-shadow-[0_10px_20px_rgba(212,175,55,0.4)] transition-transform duration-500 group-hover:scale-110"
+                    className="object-contain filter drop-shadow-[0_12px_24px_rgba(212,175,55,0.45)] transition-all duration-500 group-hover:drop-shadow-[0_20px_35px_rgba(212,175,55,0.65)]"
                     priority
                   />
-                </div>
+                </motion.div>
               </div>
 
               {/* Título */}
@@ -145,9 +145,10 @@ export default function WorkAreas() {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </section>
   );
 }
+
