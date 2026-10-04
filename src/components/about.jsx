@@ -158,7 +158,7 @@ export default function About() {
             >
               <Image
                 src="https://res.cloudinary.com/do87isqjr/image/upload/v1790954189/sin_fondo_p7mpm7.png"
-                alt="Dr. Lucas Rokotovich - Director Legal"
+                alt="Dr. Lucas Rokotovich - Abogado, Socio Fundador"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)]"
@@ -177,7 +177,7 @@ export default function About() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-[15.5px] leading-tight">Dr. Lucas Rokotovich</h3>
-                <p className="text-white/80 text-[12.5px] font-medium mt-0.5">Abogado Fundador & Director Legal</p>
+                <p className="text-white/80 text-[12.5px] font-medium mt-0.5">Abogado, Socio Fundador</p>
               </div>
             </motion.div>
 
