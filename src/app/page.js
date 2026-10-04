@@ -7,7 +7,6 @@ import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
-import TeamCarousel from "@/components/teamcarousel";
 import Timeline from "@/components/timeline";
 
 export default function Home() {

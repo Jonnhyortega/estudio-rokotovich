@@ -1,13 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { ArrowUpIcon, ChatBubbleLeftRightIcon, XMarkIcon, SparklesIcon } from '@heroicons/react/24/solid'
 import callChatAPI from '@/utils/chatbot'
-
-// 🎵 Sonidos
-const botResponseSound = typeof Audio !== 'undefined' ? new Audio('/sounds/bot-response.mp3') : null
-const userSendSound = typeof Audio !== 'undefined' ? new Audio('/sounds/send.mp3') : null
-const typingSound = typeof Audio !== 'undefined' ? new Audio('/sounds/typing.mp3') : null
 
 // Contexto para asistente
 const context_chatbot = `
@@ -51,6 +47,19 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef(null)
 
+  // 🎵 Audios del cliente
+  const botResponseSound = useRef(null)
+  const userSendSound = useRef(null)
+  const typingSound = useRef(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      botResponseSound.current = new Audio('/sounds/bot-response.mp3')
+      userSendSound.current = new Audio('/sounds/send.mp3')
+      typingSound.current = new Audio('/sounds/typing.mp3')
+    }
+  }, [])
+
   const quickReplies = [
     '¿Qué áreas legales manejan?',
     'Quiero agendar una consulta',
@@ -79,9 +88,9 @@ export default function Chatbot() {
     setInput('')
 
     // 🔊 sonido al enviar
-    if (userSendSound) {
-      userSendSound.currentTime = 0
-      userSendSound.play().catch(() => {})
+    if (userSendSound.current) {
+      userSendSound.current.currentTime = 0
+      userSendSound.current.play().catch(() => {})
     }
 
     setLoading(true)
@@ -100,11 +109,12 @@ export default function Chatbot() {
               className="text-[var(--gold)] underline underline-offset-2 hover:text-yellow-600 transition-colors inline-flex items-center gap-1 mt-1 font-semibold"
             >
               Hablar por WhatsApp
-              <img
-                width="18"
-                height="18"
+              <Image
+                width={18}
+                height={18}
                 src="https://img.icons8.com/color/48/whatsapp--v1.png"
                 alt="whatsapp"
+                unoptimized
               />
             </a>
           </span>
@@ -136,11 +146,11 @@ export default function Chatbot() {
       default:
         try {
           // 🔊 typing sound ON
-          if (typingSound) {
-            typingSound.loop = true
-            typingSound.currentTime = 0
-            typingSound.volume = 0.3
-            typingSound.play().catch(() => {})
+          if (typingSound.current) {
+            typingSound.current.loop = true
+            typingSound.current.currentTime = 0
+            typingSound.current.volume = 0.3
+            typingSound.current.play().catch(() => {})
           }
 
           reply = await callChatAPI(text, history, context_chatbot)
@@ -150,7 +160,7 @@ export default function Chatbot() {
     }
 
     // parar sonido typing
-    if (typingSound) typingSound.pause()
+    if (typingSound.current) typingSound.current.pause()
 
     setMessages(m => [...m, { from: 'bot', content: reply }])
     setHistory(h => [
@@ -159,10 +169,10 @@ export default function Chatbot() {
     ])
 
     // 🔊 sonido al recibir respuesta
-    if (typeof reply === 'string' && botResponseSound) {
-      botResponseSound.currentTime = 0
-      botResponseSound.volume = 0.7
-      botResponseSound.play().catch(() => {})
+    if (typeof reply === 'string' && botResponseSound.current) {
+      botResponseSound.current.currentTime = 0
+      botResponseSound.current.volume = 0.7
+      botResponseSound.current.play().catch(() => {})
     }
 
     setLoading(false)

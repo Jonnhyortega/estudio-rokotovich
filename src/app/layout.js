@@ -43,10 +43,16 @@ export const metadata = {
     description: 'Asesoramiento legal y representación profesional con experiencia y compromiso.',
     images: ['https://res.cloudinary.com/do87isqjr/image/upload/v1790105438/logo_qwnhne.png'],
   },
+  manifest: '/site.webmanifest',
   icons: {
-    icon: 'https://res.cloudinary.com/do87isqjr/image/upload/v1790105438/logo_qwnhne.png',
-    shortcut: 'https://res.cloudinary.com/do87isqjr/image/upload/v1790105438/logo_qwnhne.png',
-    apple: 'https://res.cloudinary.com/do87isqjr/image/upload/v1790105438/logo_qwnhne.png',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
@@ -61,6 +67,9 @@ const jsonLd = {
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Av. Leandro N. Alem 424 Piso 6, Depto 602',
+    addressLocality: 'Ciudad Autónoma de Buenos Aires',
+    postalCode: 'C1003AAV',
     addressCountry: 'AR',
   },
   geo: {

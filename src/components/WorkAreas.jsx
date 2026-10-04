@@ -124,7 +124,7 @@ export default function WorkAreas() {
                     alt={area.alt}
                     fill
                     className="object-contain filter drop-shadow-[0_12px_24px_rgba(212,175,55,0.45)] transition-all duration-500 group-hover:drop-shadow-[0_20px_35px_rgba(212,175,55,0.65)]"
-                    priority
+                    priority={index === 0}
                   />
                 </motion.div>
               </div>
