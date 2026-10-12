@@ -1,30 +1,6 @@
-import About from "@/components/about";
-import Areas from "@/components/areas";
-import WorkAreas from "@/components/WorkAreas";
-import StrategicDefense from "@/components/StrategicDefense";
-import Chatbot from "@/components/chatbot";
-import Contact from "@/components/contact";
-import Footer from "@/components/footer";
-import Hero from "@/components/hero";
-import Navbar from "@/components/navbar";
-import TeamCarousel from "@/components/teamcarousel";
-import Timeline from "@/components/timeline";
+import DesignShowcase from "@/components/showcase/DesignShowcase";
 
+// La home abre con el menú de propuestas de diseño; la propuesta 01 es la landing actual.
 export default function Home() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <StrategicDefense />
-        <About />
-        <Areas />
-        <WorkAreas />
-        <Timeline />
-        <Contact />
-        <Chatbot />
-      </main>
-      <Footer />
-    </>
-  );
+  return <DesignShowcase />;
 }

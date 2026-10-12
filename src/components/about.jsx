@@ -157,6 +157,7 @@ export default function About() {
               className="relative w-full max-w-[390px] h-[450px] sm:h-[500px] lg:h-[540px] xl:h-[580px]"
             >
               <Image
+                unoptimized
                 src="https://res.cloudinary.com/do87isqjr/image/upload/v1790954189/sin_fondo_p7mpm7.png"
                 alt="Dr. Lucas Rokotovich - Director Legal"
                 fill
