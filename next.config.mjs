@@ -1,6 +1,10 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Inserta el CSS en el HTML: elimina la petición que bloquea el primer pintado
+  experimental: {
+    inlineCss: true,
+  },
   images: {
     remotePatterns: [
       {

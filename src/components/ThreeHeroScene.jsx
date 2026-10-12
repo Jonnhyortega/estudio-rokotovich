@@ -22,11 +22,11 @@ export default function ThreeHeroScene() {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: false,
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     container.appendChild(renderer.domElement);
 
@@ -113,13 +113,26 @@ export default function ThreeHeroScene() {
       mouseY = (y / rect.height - 0.5) * 2;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     // 6. Bucle de Animación 60 FPS
     let count = 0;
     let animationFrameId;
 
+    // Solo anima mientras el hero está visible y la pestaña activa
+    let running = false;
+    const start = () => {
+      if (running) return;
+      running = true;
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(animationFrameId);
+    };
+
     const animate = () => {
+      if (!running) return;
       animationFrameId = requestAnimationFrame(animate);
 
       count += 0.03;
@@ -163,25 +176,37 @@ export default function ThreeHeroScene() {
       renderer.render(scene, camera);
     };
 
-    animate();
+    let inView = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      inView && !document.hidden ? start() : stop();
+    });
+    observer.observe(container);
+    const handleVisibility = () => (inView && !document.hidden ? start() : stop());
+    document.addEventListener("visibilitychange", handleVisibility);
+    start();
 
     // 7. Resize Responsivo
     const handleResize = () => {
-      if (!container) return;
       const w = container.clientWidth;
       const h = container.clientHeight;
+      if (!w || !h) return;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
 
-    window.addEventListener("resize", handleResize);
+    // ResizeObserver: también ajusta el canvas si el hero estaba oculto al montarse
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container);
 
     // Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
+      stop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement);
       }

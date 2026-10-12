@@ -1,11 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import cloudinaryLoader from "@/lib/cloudinary";
 import { motion } from "framer-motion";
-import Chatbot from "@/components/chatbot";
 import { ASSOCIATED_AREAS, JURISDICTIONS, PENAL_ITEMS, PROCESS_STEPS, STUDIO, whatsappUrl } from "../data";
 import { ArrowIcon, BrandMark, EASE, Reveal } from "../shared";
+
+// El chatbot no hace falta en la carga inicial: se descarga después, sin SSR
+const Chatbot = dynamic(() => import("@/components/chatbot"), { ssr: false });
 
 // Propuesta 02: Institucional. Tono editorial y sobrio, foco en trayectoria, valores y respaldo.
 
@@ -185,7 +189,7 @@ function Hero() {
           <div className="absolute -inset-3 rounded-t-full border border-[var(--gold)]/60" />
           <div className="relative h-[460px] overflow-hidden rounded-t-full bg-gradient-to-b from-[var(--secondary-blue)] via-[var(--first-blue)] to-[#041121] sm:h-[540px]">
             <Image src={STUDIO.logo} alt="" width={360} height={360} className="absolute left-1/2 top-16 -translate-x-1/2 opacity-[0.07]" />
-            <Image unoptimized src={STUDIO.directorPhoto} alt={`${STUDIO.director} — ${STUDIO.directorRole}`} fill priority sizes="420px" className="object-contain object-bottom" />
+            <Image loader={cloudinaryLoader} src={STUDIO.directorPhoto} alt={`${STUDIO.director} — ${STUDIO.directorRole}`} fill priority sizes="420px" className="object-contain object-bottom" />
           </div>
           <div className="absolute -bottom-px left-0 right-0 bg-white/95 px-6 py-4 backdrop-blur">
             <p className="font-serif text-[17px] font-bold text-[var(--first-blue)]">{STUDIO.director}</p>

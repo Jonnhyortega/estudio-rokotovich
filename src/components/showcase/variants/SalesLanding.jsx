@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import cloudinaryLoader from "@/lib/cloudinary";
 import { motion } from "framer-motion";
 import { PENAL_ITEMS, STUDIO, whatsappUrl } from "../data";
 import { ArrowIcon, BrandMark, CheckIcon, EASE, FaqList, LeadForm, Reveal, WhatsAppIcon } from "../shared";
@@ -207,7 +208,7 @@ function Hero() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.15, ease: EASE }} className="relative lg:col-span-6">
           <div className="relative mx-auto h-[480px] max-w-[520px] overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[var(--secondary-blue)] via-[var(--first-blue)] to-[#041121] shadow-2xl shadow-[var(--first-blue)]/30">
             <Image src={STUDIO.logo} alt="" width={420} height={420} className="absolute -right-20 -top-16 opacity-[0.08]" />
-            <Image unoptimized src={STUDIO.directorPhoto} alt={STUDIO.director} fill priority sizes="520px" className="object-contain object-bottom" />
+            <Image loader={cloudinaryLoader} src={STUDIO.directorPhoto} alt={STUDIO.director} fill priority sizes="520px" className="object-contain object-bottom" />
           </div>
           <div className="absolute -left-2 bottom-10 w-[250px] rounded-2xl bg-white p-5 shadow-2xl sm:left-0 lg:-left-8">
             <p className="text-[12px] font-bold uppercase tracking-wider text-slate-500">Incluido en todos los servicios</p>
@@ -428,7 +429,7 @@ function Closing() {
           </p>
           <div className="mt-8 flex items-center gap-4">
             <div className="relative h-14 w-14 overflow-hidden rounded-full bg-[var(--secondary-blue)] ring-2 ring-[var(--gold)]">
-              <Image unoptimized src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="56px" className="object-cover object-top" />
+              <Image loader={cloudinaryLoader} src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="56px" className="object-cover object-top" />
             </div>
             <div>
               <p className="font-bold">{STUDIO.director}</p>

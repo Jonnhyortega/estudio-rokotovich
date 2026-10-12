@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import cloudinaryLoader from "@/lib/cloudinary";
 import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -157,7 +158,7 @@ export default function About() {
               className="relative w-full max-w-[390px] h-[450px] sm:h-[500px] lg:h-[540px] xl:h-[580px]"
             >
               <Image
-                unoptimized
+                loader={cloudinaryLoader}
                 src="https://res.cloudinary.com/do87isqjr/image/upload/v1790954189/sin_fondo_p7mpm7.png"
                 alt="Dr. Lucas Rokotovich - 2, Socio Fundador"
                 fill

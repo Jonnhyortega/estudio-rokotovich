@@ -30,3 +30,38 @@ body {
   *{border:1px solid red;} */
 
 }
+
+/* Entrada de elementos above-the-fold en CSS puro: se ve sin esperar a que cargue el JavaScript */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in { animation: fade-in 0.5s ease-out both; }
+
+/* Mobile y tablet: los desenfoques grandes y backdrop-filter son muy costosos en Safari iOS */
+@media (max-width: 1023px) {
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  [class*="blur-["], .blur-3xl {
+    filter: blur(48px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

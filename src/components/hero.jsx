@@ -1,17 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
-const ThreeHeroScene = dynamic(() => import("./ThreeHeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[450px] lg:h-[550px] flex items-center justify-center">
-      <div className="w-10 h-10 rounded-full border-2 border-[var(--gold)] border-t-transparent animate-spin" />
-    </div>
-  ),
-});
+// La escena 3D solo se descarga en escritorio con mouse, sin "reducir movimiento" y con el navegador libre.
+const ThreeHeroScene = dynamic(() => import("./ThreeHeroScene"), { ssr: false, loading: () => null });
+
+function useDeferred3D() {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const capable =
+      window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      !navigator.connection?.saveData;
+    if (!capable) return;
+    const enable = () => setEnabled(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(enable, { timeout: 2500 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(enable, 1500);
+    return () => clearTimeout(id);
+  }, []);
+  return enabled;
+}
 
 export default function Hero({
   title = "Rokotovich Estudio Jurídico",
@@ -19,32 +32,7 @@ export default function Hero({
   ctaPrimary = { href: "#contacto", label: "Agendar consulta" },
   ctaSecondary = { href: "#areas", label: "Áreas de práctica" },
 }) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-    },
-  };
-
-  const badgeVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
+  const show3D = useDeferred3D();
 
   return (
     <section
@@ -58,7 +46,7 @@ export default function Hero({
       "
     >
       {/* Escena 3D de Ondas y Partículas Doradas de Fondo */}
-      <ThreeHeroScene />
+      {show3D && <ThreeHeroScene />}
 
       {/* Overlay Gradiente Oscuro para Garantizar Máxima Legibilidad del Texto */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#041121]/95 via-[#041121]/80 to-[#041121]/45 pointer-events-none z-[1]" />
@@ -70,38 +58,34 @@ export default function Hero({
 
       {/* Contenido Principal */}
       <div className="mx-auto w-full max-w-7xl px-6 relative z-10 pointer-events-none">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
           {/* Columna Izquierda: Textos y CTAs */}
           <div className="lg:col-span-7 flex flex-col items-start pointer-events-auto">
             {/* Chip superior */}
-            <motion.div variants={itemVariants} className="mb-6">
+            <div className="rise mb-6" style={{ "--d": "0.05s" }}>
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold tracking-wide text-white ring-1 ring-white/20 backdrop-blur-md shadow-lg">
                 <ScaleIcon className="h-4 w-4 text-[var(--gold)]" />
                 DEFENSA Y ASESORÍA INTEGRAL
               </span>
-            </motion.div>
+            </div>
 
             {/* Título Principal */}
-            <motion.div variants={itemVariants}>
+            <div className="rise" style={{ "--d": "0.12s" }}>
               <h1 className="text-balance text-[38px] sm:text-5xl lg:text-[62px] font-extrabold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] leading-[1.08]">
                 {title}
               </h1>
-            </motion.div>
+            </div>
 
             {/* Subtítulo */}
-            <motion.div variants={itemVariants}>
+            <div className="rise" style={{ "--d": "0.20s" }}>
               <p className="mt-6 text-[18px] sm:text-[21px] leading-[1.6] text-white/90 font-light max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {subtitle}
               </p>
-            </motion.div>
+            </div>
 
             {/* Botones CTA */}
-            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-4 w-full sm:w-auto">
+            <div className="rise mt-8 flex flex-wrap items-center gap-4 w-full sm:w-auto" style={{ "--d": "0.28s" }}>
               <Link
                 href={ctaPrimary.href}
                 className="
@@ -126,24 +110,22 @@ export default function Hero({
               >
                 {ctaSecondary.label}
               </Link>
-            </motion.div>
+            </div>
 
             {/* Badges de confianza */}
-            <motion.dl
-              variants={containerVariants}
-              className="mt-12 grid max-w-xl grid-cols-1 gap-4 sm:gap-6 text-white/85 sm:grid-cols-3 w-full"
+            <dl className="mt-12 grid max-w-xl grid-cols-1 gap-4 sm:gap-6 text-white/85 sm:grid-cols-3 w-full"
             >
-              <motion.div variants={badgeVariants}><Badge title="+1000 casos" desc="de experiencia" /></motion.div>
-              <motion.div variants={badgeVariants}><Badge title="Respuesta rápida" desc="casos nuevos" /></motion.div>
-              <motion.div variants={badgeVariants}><Badge title="Atención federal" desc="AR 🇦🇷" /></motion.div>
-            </motion.dl>
+              <div className="rise" style={{ "--d": "0.36s" }}><Badge title="+1000 casos" desc="de experiencia" /></div>
+              <div className="rise" style={{ "--d": "0.44s" }}><Badge title="Respuesta rápida" desc="casos nuevos" /></div>
+              <div className="rise" style={{ "--d": "0.52s" }}><Badge title="Atención federal" desc="AR 🇦🇷" /></div>
+            </dl>
           </div>
 
           {/* Columna Derecha: Tarjetas Flotantes de Lujo Glassmorphism */}
           <div className="hidden lg:block lg:col-span-5 pointer-events-auto">
-            <motion.div
-              variants={itemVariants}
-              className="relative mx-auto w-full max-w-[440px] space-y-5"
+            <div
+              className="rise relative mx-auto w-full max-w-[440px] space-y-5"
+              style={{ "--d": "0.3s" }}
             >
               {/* Tarjeta 1 */}
               <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15">
@@ -183,9 +165,9 @@ export default function Hero({
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

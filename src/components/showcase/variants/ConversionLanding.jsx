@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import cloudinaryLoader from "@/lib/cloudinary";
 import { motion } from "framer-motion";
 import { JURISDICTIONS, STUDIO, whatsappUrl } from "../data";
 import { ArrowIcon, BrandMark, CheckIcon, EASE, FaqList, LeadForm, Reveal, WhatsAppIcon } from "../shared";
@@ -144,7 +145,7 @@ function Hero() {
           </motion.ul>
           <div className="mt-10 flex items-center gap-4">
             <div className="relative h-14 w-14 overflow-hidden rounded-full bg-gradient-to-b from-[var(--secondary-blue)] to-[var(--first-blue)] ring-2 ring-[var(--gold)]">
-              <Image unoptimized src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="56px" className="object-cover object-top" />
+              <Image loader={cloudinaryLoader} src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="56px" className="object-cover object-top" />
             </div>
             <div>
               <p className="text-[15px] font-bold">{STUDIO.director}</p>
@@ -242,7 +243,7 @@ function Authority() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-10">
         <Reveal className="relative mx-auto w-full max-w-md">
           <div className="relative h-[440px] overflow-hidden rounded-[2rem] bg-gradient-to-b from-[var(--secondary-blue)] to-[#041121]">
-            <Image unoptimized src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="448px" className="object-contain object-bottom" />
+            <Image loader={cloudinaryLoader} src={STUDIO.directorPhoto} alt={STUDIO.director} fill sizes="448px" className="object-contain object-bottom" />
           </div>
           <div className="absolute -bottom-6 -right-2 rounded-2xl bg-white p-5 shadow-2xl sm:-right-6">
             <p className="text-[30px] font-extrabold leading-none text-[var(--first-blue)]">+1000</p>

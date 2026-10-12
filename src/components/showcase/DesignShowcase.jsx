@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import OriginalLanding from "./variants/OriginalLanding";
 import { EASE } from "./shared";
 import { STUDIO } from "./data";
@@ -14,9 +14,20 @@ const Loading = () => (
   </div>
 );
 
-const InstitutionalLanding = dynamic(() => import("./variants/InstitutionalLanding"), { loading: Loading });
-const ConversionLanding = dynamic(() => import("./variants/ConversionLanding"), { loading: Loading });
-const SalesLanding = dynamic(() => import("./variants/SalesLanding"), { loading: Loading });
+const loadInstitutional = () => import("./variants/InstitutionalLanding");
+const loadConversion = () => import("./variants/ConversionLanding");
+const loadSales = () => import("./variants/SalesLanding");
+
+const InstitutionalLanding = dynamic(loadInstitutional, { loading: Loading });
+const ConversionLanding = dynamic(loadConversion, { loading: Loading });
+const SalesLanding = dynamic(loadSales, { loading: Loading });
+
+// Precarga las otras propuestas cuando el navegador está libre, para que el cambio sea instantáneo
+function prefetchVariants() {
+  const run = () => [loadInstitutional, loadConversion, loadSales].forEach((load) => load().catch(() => {}));
+  if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 4000 });
+  else setTimeout(run, 2000);
+}
 
 export const DESIGNS = [
   {
@@ -84,8 +95,9 @@ export default function DesignShowcase() {
   }, [menuOpen]);
 
   return (
-    <>
-      <div key={active.id} aria-hidden={menuOpen || undefined}>
+    <MotionConfig reducedMotion="user">
+      {/* Hasta la primera elección la landing queda en el HTML (SEO) pero oculta: el navegador no la calcula ni la pinta */}
+      <div key={active.id} aria-hidden={menuOpen || undefined} hidden={!hasChosen}>
         <Active />
       </div>
 
@@ -93,7 +105,8 @@ export default function DesignShowcase() {
         <Switcher active={active} index={activeIndex} onOpen={() => setMenuOpen(true)} onStep={step} />
       )}
 
-      <AnimatePresence>
+      {/* initial={false}: el menú sale visible desde el HTML del servidor, sin esperar al JavaScript */}
+      <AnimatePresence initial={false}>
         {menuOpen && (
           <DesignMenu
             activeId={hasChosen ? activeId : null}
@@ -102,12 +115,16 @@ export default function DesignShowcase() {
           />
         )}
       </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }
 
 function DesignMenu({ activeId, onChoose, onClose }) {
   const dialogRef = useRef(null);
+
+  useEffect(() => {
+    prefetchVariants();
+  }, []);
 
   // Atajos: 1–4 eligen una propuesta, Esc cierra si ya hay una elegida
   useEffect(() => {
@@ -147,10 +164,8 @@ function DesignMenu({ activeId, onChoose, onClose }) {
       <div className="pointer-events-none fixed -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--gold)]/12 blur-[150px]" />
 
       <motion.div
-        initial={{ y: 24, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
         exit={{ y: -16, opacity: 0 }}
-        transition={{ duration: 0.7, ease: EASE }}
+        transition={{ duration: 0.5, ease: EASE }}
         className="relative mx-auto flex min-h-full max-w-7xl flex-col px-4 py-8 sm:px-6 sm:py-12 lg:px-10"
       >
         <div className="flex items-center justify-between gap-4">
@@ -184,12 +199,7 @@ function DesignMenu({ activeId, onChoose, onClose }) {
 
         <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {DESIGNS.map((d, i) => (
-            <motion.li
-              key={d.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 + i * 0.08, ease: EASE }}
-            >
+            <li key={d.id} className="rise" style={{ "--d": `${0.12 + i * 0.07}s` }}>
               <button
                 type="button"
                 onClick={() => onChoose(d.id)}
@@ -224,7 +234,7 @@ function DesignMenu({ activeId, onChoose, onClose }) {
                   </div>
                 </div>
               </button>
-            </motion.li>
+            </li>
           ))}
         </ul>
 

@@ -52,13 +52,14 @@ export default function Chatbot() {
   const userSendSound = useRef(null)
   const typingSound = useRef(null)
 
+  // Los audios se crean recién al abrir el chat, para no descargarlos en la carga inicial
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (chatOpen && !botResponseSound.current) {
       botResponseSound.current = new Audio('/sounds/bot-response.mp3')
       userSendSound.current = new Audio('/sounds/send.mp3')
       typingSound.current = new Audio('/sounds/typing.mp3')
     }
-  }, [])
+  }, [chatOpen])
 
   const quickReplies = [
     '¿Qué áreas legales manejan?',
