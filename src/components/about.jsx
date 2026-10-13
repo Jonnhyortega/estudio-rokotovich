@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import cloudinaryLoader from "@/lib/cloudinary";
 import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m as motion, useScroll, useTransform } from "framer-motion";
 
 export default function About() {
   const containerRef = useRef(null);
@@ -162,9 +162,8 @@ export default function About() {
                 src="https://res.cloudinary.com/do87isqjr/image/upload/v1790954189/sin_fondo_p7mpm7.png"
                 alt="Dr. Lucas Rokotovich - 2, Socio Fundador"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 640px) 90vw, 390px"
                 className="object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)]"
-                priority
               />
               <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#020812] to-transparent pointer-events-none" />
             </motion.div>

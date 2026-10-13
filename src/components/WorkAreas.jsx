@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 export default function WorkAreas() {
   // Animación 3D individual por tarjeta para activación precisa en smartphones al hacer scroll
@@ -124,7 +124,6 @@ export default function WorkAreas() {
                     alt={area.alt}
                     fill
                     className="object-contain filter drop-shadow-[0_12px_24px_rgba(212,175,55,0.45)] transition-all duration-500 group-hover:drop-shadow-[0_20px_35px_rgba(212,175,55,0.65)]"
-                    priority={index === 0}
                   />
                 </motion.div>
               </div>

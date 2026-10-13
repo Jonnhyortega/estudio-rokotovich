@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ShieldCheckIcon, ScaleIcon, UserGroupIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function StrategicDefense() {

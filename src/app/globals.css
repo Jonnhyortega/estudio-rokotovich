@@ -40,6 +40,22 @@ body {
   animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0s);
 }
+/* Variante solo de movimiento: el texto principal (LCP) se pinta desde el primer frame */
+@keyframes rise-soft {
+  from { transform: translateY(14px); }
+  to { transform: none; }
+}
+.rise-soft {
+  animation: rise-soft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+/* Secciones debajo del hero: el navegador no las calcula ni las pinta hasta que se acercan al viewport */
+main > section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
