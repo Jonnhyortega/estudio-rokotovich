@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import cloudinaryLoader from "@/lib/cloudinary";
-import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, CheckCircleIcon, ScaleIcon } from "@heroicons/react/24/outline";
 import { m as motion, useScroll, useTransform } from "framer-motion";
 
 export default function About() {
@@ -174,7 +174,7 @@ export default function About() {
               className="absolute bottom-8 left-6 right-6 sm:left-auto sm:right-8 bg-white/10 backdrop-blur-xl border border-white/25 rounded-2xl p-4 shadow-2xl flex items-center gap-4 max-w-sm z-20"
             >
               <div className="w-11 h-11 rounded-full bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0 shadow-lg">
-                <span className="text-[var(--gold)] text-xl">⚖️</span>
+                <ScaleIcon className="h-5 w-5 text-[var(--gold)]" aria-hidden="true" />
               </div>
               <div>
                 <h3 className="text-white font-bold text-[15.5px] leading-tight">Dr. Lucas Rokotovich</h3>
