@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { m as motion } from "framer-motion";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 
 export default function WorkAreas() {
   // Animación 3D individual por tarjeta para activación precisa en smartphones al hacer scroll
@@ -34,7 +35,7 @@ export default function WorkAreas() {
       subtitle: "Cobertura Nacional — República Argentina",
       description:
         "Representación e intervención legal en Juzgados, Cámaras y Fueros Federales en todo el país.",
-      badge: "Nacional 🇦🇷",
+      badge: "Nacional",
       imageSrc: "/mapa-argentina.png",
       alt: "Mapa Fuero Federal Argentina",
     },
@@ -80,7 +81,8 @@ export default function WorkAreas() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[var(--gold)] text-xs font-bold tracking-[0.2em] uppercase mb-4 shadow-lg backdrop-blur-md">
-            <span>📍 Alcance Territorial & Jurisdiccional</span>
+            <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+            <span>Alcance Territorial & Jurisdiccional</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
