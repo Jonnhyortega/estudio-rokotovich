@@ -1,5 +1,6 @@
 import { merriweather, workSans } from './font';
 import "./globals.css";
+import MotionProvider from "@/components/MotionProvider";
 
 
 export const metadata = {
@@ -105,7 +106,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${workSans.variable} ${merriweather.variable}`}>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

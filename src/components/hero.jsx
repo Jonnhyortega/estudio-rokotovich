@@ -72,14 +72,14 @@ export default function Hero({
             </div>
 
             {/* Título Principal */}
-            <div className="rise" style={{ "--d": "0.12s" }}>
+            <div className="rise-soft" style={{ "--d": "0.12s" }}>
               <h1 className="text-balance text-[38px] sm:text-5xl lg:text-[62px] font-extrabold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] leading-[1.08]">
                 {title}
               </h1>
             </div>
 
             {/* Subtítulo */}
-            <div className="rise" style={{ "--d": "0.20s" }}>
+            <div className="rise-soft" style={{ "--d": "0.20s" }}>
               <p className="mt-6 text-[18px] sm:text-[21px] leading-[1.6] text-white/90 font-light max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {subtitle}
               </p>
