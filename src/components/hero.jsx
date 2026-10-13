@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { BuildingLibraryIcon, ScaleIcon as ScaleOutlineIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 
 // La escena 3D solo se descarga en escritorio con mouse, sin "reducir movimiento" y con el navegador libre.
 const ThreeHeroScene = dynamic(() => import("./ThreeHeroScene"), { ssr: false, loading: () => null });
@@ -117,7 +118,7 @@ export default function Hero({
             >
               <div className="rise" style={{ "--d": "0.36s" }}><Badge title="+1000 casos" desc="de experiencia" /></div>
               <div className="rise" style={{ "--d": "0.44s" }}><Badge title="Respuesta rápida" desc="casos nuevos" /></div>
-              <div className="rise" style={{ "--d": "0.52s" }}><Badge title="Atención federal" desc="AR 🇦🇷" /></div>
+              <div className="rise" style={{ "--d": "0.52s" }}><Badge title="Atención federal" desc="en Argentina" /></div>
             </dl>
           </div>
 
@@ -131,7 +132,7 @@ export default function Hero({
               <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0">
-                    <span className="text-2xl">⚖️</span>
+                    <ScaleOutlineIcon className="h-6 w-6 text-[var(--gold)]" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-[17px]">Defensa & Estrategia Integral</h3>
@@ -144,7 +145,7 @@ export default function Hero({
               <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15 ml-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center shrink-0">
-                    <span className="text-2xl">🏛️</span>
+                    <BuildingLibraryIcon className="h-6 w-6 text-blue-300" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-[17px]">Atención Federal & Asesoría</h3>
@@ -157,7 +158,7 @@ export default function Hero({
               <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-2xl transition-transform duration-500 hover:-translate-y-1 hover:bg-white/15">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-[var(--gold)]/20 border border-[var(--gold)]/40 flex items-center justify-center shrink-0">
-                    <span className="text-2xl">🛡️</span>
+                    <ShieldCheckIcon className="h-6 w-6 text-[var(--gold)]" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-[17px]">Respuesta Rápida 24/7</h3>
