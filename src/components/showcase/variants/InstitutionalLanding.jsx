@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import cloudinaryLoader from "@/lib/cloudinary";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ASSOCIATED_AREAS, JURISDICTIONS, PENAL_ITEMS, PROCESS_STEPS, STUDIO, whatsappUrl } from "../data";
 import { ArrowIcon, BrandMark, EASE, Reveal } from "../shared";
 

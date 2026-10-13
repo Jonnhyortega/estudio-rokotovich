@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, m as motion } from "framer-motion";
 import OriginalLanding from "./variants/OriginalLanding";
 import { EASE } from "./shared";
 import { STUDIO } from "./data";

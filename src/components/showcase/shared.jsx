@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { CASE_TYPES, STUDIO, whatsappUrl } from "./data";
 
 export const EASE = [0.16, 1, 0.3, 1];

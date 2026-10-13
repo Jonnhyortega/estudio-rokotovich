@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import cloudinaryLoader from "@/lib/cloudinary";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { JURISDICTIONS, STUDIO, whatsappUrl } from "../data";
 import { ArrowIcon, BrandMark, CheckIcon, EASE, FaqList, LeadForm, Reveal, WhatsAppIcon } from "../shared";
 
