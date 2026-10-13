@@ -1,7 +1,7 @@
 "use client";
 
 import { m as motion } from "framer-motion";
-import { ShieldCheckIcon, ScaleIcon, UserGroupIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ShieldCheckIcon, ScaleIcon, UserGroupIcon, ArrowRightIcon, DocumentTextIcon, BriefcaseIcon } from "@heroicons/react/24/outline";
 
 export default function StrategicDefense() {
   // Configuración de animación 3D por viewport para mobile y desktop
@@ -137,7 +137,9 @@ export default function StrategicDefense() {
                   className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02]"
                 >
                   <div className="flex items-center gap-3 mb-1.5">
-                    <span className="text-xl">🚗</span>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[var(--gold)]/30 bg-[var(--gold)]/15">
+                      <DocumentTextIcon className="h-5 w-5 text-[var(--gold)]" aria-hidden="true" />
+                    </span>
                     <h4 className="text-white font-bold text-[15.5px]">Derecho Civil</h4>
                   </div>
                   <p className="text-slate-300 text-[13.5px] font-light leading-snug">
@@ -154,7 +156,9 @@ export default function StrategicDefense() {
                   className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02]"
                 >
                   <div className="flex items-center gap-3 mb-1.5">
-                    <span className="text-xl">💼</span>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[var(--gold)]/30 bg-[var(--gold)]/15">
+                      <BriefcaseIcon className="h-5 w-5 text-[var(--gold)]" aria-hidden="true" />
+                    </span>
                     <h4 className="text-white font-bold text-[15.5px]">Derecho Laboral</h4>
                   </div>
                   <p className="text-slate-300 text-[13.5px] font-light leading-snug">
